@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Estates | Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+       
+        
+        /* CONTACT PAGE SPECIFIC STYLES */
+        .contact-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(10, 37, 64, 0.7), rgba(10, 37, 64, 0.7)), 
+                        url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .contact-hero-content {
+            max-width: 800px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .contact-page-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .contact-map {
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-method {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-method i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-method h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-method p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-method a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .contact-method a:hover {
+            color: var(--accent);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-member-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--accent);
+        }
+        
+        .team-member h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member-role {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .team-member-contact {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .faq-section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 4rem;
+            margin-top: 5rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+        }
+        
+        .faq-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            position: relative;
+            padding-right: 2rem;
+        }
+        
+        .faq-question:after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-question:after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            color: #666;
+            line-height: 1.7;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-page-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-section {
+                padding: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Luxury<span>Estates</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="#" class="logo">Luxury<span>Estates</span></a>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+    
+    <!-- Contact Hero Section -->
+    <section class="hero contact-hero">
+        <div class="container">
+            <div class="contact-hero-content fade-element" style="color: white;">
+                <h1>Connect With Luxury Estates</h1>
+                <p>Our team of luxury property specialists is ready to assist you with all your real estate needs</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Content -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Reach out to our team for personalized assistance with luxury properties</p>
+            </div>
+            
+            <div class="contact-page-grid">
+                <div class="contact-info fade-element delay-1">
+                    <h3>Our Headquarters</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>123 Luxury Avenue, Beverly Hills, CA 90210</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>+1 (310) 555-1234</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>info@luxuryestates.com</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>Monday - Friday: 9am - 6pm</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Regional Offices</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>456 Park Avenue, New York, NY 10022</div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>789 Ocean Drive, Miami Beach, FL 33139</div>
+                    </div>
+                    
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-element delay-2">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="" disabled selected>Select Inquiry Type</option>
+                                <option value="buying">Buying a Property</option>
+                                <option value="selling">Selling a Property</option>
+                                <option value="investment">Investment Opportunities</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required minlength="20"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+           
+            
+            <div class="contact-methods fade-element">
+                <div class="contact-method">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Schedule a Tour</h4>
+                    <p>Book a private showing of our exclusive properties</p>
+                    <a href="#">Book Now</a>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-home"></i>
+                    <h4>Property Valuation</h4>
+                    <p>Get an expert valuation of your luxury property</p>
+                    <a href="#">Request Valuation</a>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-headset"></i>
+                    <h4>Client Support</h4>
+                    <p>Our dedicated support team is ready to assist you</p>
+                    <a href="#">Get Support</a>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-file-contract"></i>
+                    <h4>Careers</h4>
+                    <p>Join our team of luxury real estate professionals</p>
+                    <a href="#">View Opportunities</a>
+                </div>
+            </div>
+            
+            <div class="section-header fade-element">
+                <h2 class="section-title">Our Leadership Team</h2>
+                <p class="section-subtitle">Meet the experts dedicated to your luxury real estate journey</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member fade-element delay-1">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Robert Chen" class="team-member-img">
+                    <h4>Robert Chen</h4>
+                    <div class="team-member-role">Founder & CEO</div>
+                    <div class="team-member-contact">robert@luxuryestates.com</div>
+                    <div class="team-member-contact">+1 (310) 555-1001</div>
+                </div>
+                
+                <div class="team-member fade-element delay-2">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" class="team-member-img">
+                    <h4>Sarah Johnson</h4>
+                    <div class="team-member-role">Director of Sales</div>
+                    <div class="team-member-contact">sarah@luxuryestates.com</div>
+                    <div class="team-member-contact">+1 (310) 555-1002</div>
+                </div>
+                
+                <div class="team-member fade-element delay-3">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Michael Thompson" class="team-member-img">
+                    <h4>Michael Thompson</h4>
+                    <div class="team-member-role">Head of International Properties</div>
+                    <div class="team-member-contact">michael@luxuryestates.com</div>
+                    <div class="team-member-contact">+1 (310) 555-1003</div>
+                </div>
+                
+                <div class="team-member fade-element delay-4">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jennifer Lee" class="team-member-img">
+                    <h4>Jennifer Lee</h4>
+                    <div class="team-member-role">Director of Client Relations</div>
+                    <div class="team-member-contact">jennifer@luxuryestates.com</div>
+                    <div class="team-member-contact">+1 (310) 555-1004</div>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-element delay-1">
+                <div class="section-header">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Find answers to common questions about our services</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I schedule a property viewing?</div>
+                    <div class="faq-answer">
+                        <p>To schedule a viewing of any of our luxury properties, you can contact our office directly at +1 (310) 555-1234, use our online contact form, or email info@luxuryestates.com. Our team will coordinate with the property owner and arrange a private showing at your convenience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What areas do you specialize in?</div>
+                    <div class="faq-answer">
+                        <p>Luxury Estates specializes in premium properties in Beverly Hills, Malibu, Manhattan, Miami Beach, Aspen, and other exclusive locations worldwide. We also have extensive experience with international luxury properties in Europe, Asia, and the Caribbean.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do you determine property valuations?</div>
+                    <div class="faq-answer">
+                        <p>Our valuation experts use a comprehensive approach that includes comparative market analysis, property condition assessment, location evaluation, and current market trends. We also consider unique features and luxury amenities that add value to premium properties.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do you represent international buyers?</div>
+                    <div class="faq-answer">
+                        <p>Yes, we have extensive experience working with international clients. Our multilingual team can assist with all aspects of cross-border transactions, including currency exchange, international financing options, tax considerations, and legal requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col fade-element">
+                    <h4>Luxury Estates</h4>
+                    <p>Redefining luxury real estate with exceptional service and unparalleled expertise in premium property markets worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col fade-element delay-1">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-2">
+                    <h4>Properties</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Luxury Villas</a></li>
+                        <li><a href="#">Penthouse Apartments</a></li>
+                        <li><a href="#">Waterfront Homes</a></li>
+                        <li><a href="#">Mountain Retreats</a></li>
+                        <li><a href="#">Urban Residences</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-3">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive exclusive property listings and market insights.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email Address" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright fade-element">
+                &copy; 2025 Luxury Estates. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.overlay');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        overlay.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Scroll animations with Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-element');
+            
+            // Options for the observer
+            const options = {
+                threshold: 0.15, // Trigger when 15% of element is visible
+                rootMargin: '0px 0px -50px 0px' // Adjust when elements become visible
+            };
+            
+            // Create the observer
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        // Remove this else block if you don't want fade-out effect
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, options);
+            
+            // Observe each element
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Immediately show elements that are already in view
+            window.addEventListener('load', () => {
+                fadeElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top <= window.innerHeight * 0.85 &&
+                        rect.bottom >= window.innerHeight * 0.15
+                    );
+                    
+                    if (isVisible) {
+                        el.classList.add('visible');
+                    }
+                });
+            });
+        });
+        
+        // FAQ Accordion Functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // Form validation
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                let isValid = true;
+                const inputs = contactForm.querySelectorAll('input, textarea, select');
+                
+                inputs.forEach(input => {
+                    if (input.hasAttribute('required') && !input.value.trim()) {
+                        isValid = false;
+                        input.style.borderColor = '#e74c3c';
+                    } else {
+                        input.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (isValid) {
+                    // Form submission logic would go here
+                    alert('Thank you for your message! Our team will contact you shortly.');
+                    contactForm.reset();
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

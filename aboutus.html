@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Luxury Estates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Minimal additional CSS for About page */
+        .hero-about {
+            background: linear-gradient(rgba(10, 37, 64, 0.7), rgba(10, 37, 64, 0.7)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: rgba(0, 160, 168, 0.1);
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .team-img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .team-content {
+            padding: 1.8rem;
+            text-align: center;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+        
+        .team-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .team-social a:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 4rem auto 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent);
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+        
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-year {
+            position: absolute;
+            top: 20px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -100px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -100px;
+        }
+        
+        @media (max-width: 992px) {
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+            
+            .timeline-year {
+                left: -100px !important;
+                right: auto !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-year {
+                width: 60px;
+                height: 60px;
+                font-size: 1.1rem;
+                left: -80px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="aboutus.html" class="active">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="schedule-tour.html" class="nav-cta">Schedule Tour</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero hero-about">
+        <div class="container">
+            <div class="hero-content fade-element">
+                <h1>Our Story & Values</h1>
+                <p>Discover the legacy behind Luxury Estates and the principles that guide our commitment to excellence in luxury real estate.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Mission -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-subtitle">Redefining the luxury real estate experience since 2005</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text fade-element">
+                    <p>Founded in 2005 by industry veterans, Luxury Estates was born from a vision to transform the high-end real estate experience. We recognized that luxury clients deserve more than just transactions - they deserve a bespoke journey tailored to their unique aspirations.</p>
+                    
+                    <p>Our mission is to elevate the luxury real estate experience through unparalleled market knowledge, innovative technology, and white-glove service. We combine global perspective with local expertise to deliver exceptional results for our discerning clients.</p>
+                    
+                    <div class="stats">
+                        <div class="stat fade-element delay-1">
+                            <div class="stat-number">18+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat fade-element delay-2">
+                            <div class="stat-number">32</div>
+                            <div class="stat-label">Global Locations</div>
+                        </div>
+                        <div class="stat fade-element delay-3">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-img fade-element delay-1">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Luxury Estates Team">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Values -->
+    <section class="section about">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Our Core Values</h2>
+                <p class="section-subtitle">The principles that guide every aspect of our service</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card fade-element delay-1">
+                    <div class="value-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We pursue perfection in every detail, setting industry standards through exceptional execution and continuous improvement.</p>
+                </div>
+                
+                <div class="value-card fade-element delay-2">
+                    <div class="value-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>Honesty and transparency form the foundation of every client relationship. We do what's right, always.</p>
+                </div>
+                
+                <div class="value-card fade-element delay-3">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We embrace cutting-edge technology and creative solutions to enhance the luxury real estate experience.</p>
+                </div>
+                
+                <div class="value-card fade-element delay-4">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Partnership</h3>
+                    <p>We build lasting relationships based on trust, understanding, and mutual success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Journey -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Our Journey</h2>
+                <p class="section-subtitle">Milestones in our pursuit of excellence</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item fade-element delay-1">
+                    <div class="timeline-year">2005</div>
+                    <div class="timeline-content">
+                        <h3>Founding of Luxury Estates</h3>
+                        <p>Founded by Olivia Richardson and Michael Chen with a vision to transform luxury real estate through exceptional service and market expertise.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-element delay-2">
+                    <div class="timeline-year">2010</div>
+                    <div class="timeline-content">
+                        <h3>First International Office</h3>
+                        <p>Expanded to London, establishing our first international presence and marking the beginning of our global network.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-element delay-3">
+                    <div class="timeline-year">2014</div>
+                    <div class="timeline-content">
+                        <h3>$1 Billion in Sales</h3>
+                        <p>Achieved the milestone of $1 billion in annual sales, cementing our position as a leader in luxury real estate.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-element delay-4">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-content">
+                        <h3>Technology Platform Launch</h3>
+                        <p>Introduced our proprietary digital platform, revolutionizing how clients discover and experience luxury properties.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-element delay-5">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>Global Presence</h3>
+                        <p>Now serving clients in 32 international locations with over 250 dedicated luxury property specialists.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Leadership Team -->
+    <section class="section about">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Leadership Team</h2>
+                <p class="section-subtitle">Meet the visionaries guiding our success</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member fade-element delay-1">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" alt="Michael Chen" class="team-img">
+                    <div class="team-content">
+                        <h3>Michael Chen</h3>
+                        <p>CEO & Co-Founder</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-element delay-2">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=776&q=80" alt="Olivia Richardson" class="team-img">
+                    <div class="team-content">
+                        <h3>Olivia Richardson</h3>
+                        <p>President & Co-Founder</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-element delay-3">
+                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=798&q=80" alt="David Rodriguez" class="team-img">
+                    <div class="team-content">
+                        <h3>David Rodriguez</h3>
+                        <p>Global Operations Director</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member fade-element delay-4">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=776&q=80" alt="Sophie Dubois" class="team-img">
+                    <div class="team-content">
+                        <h3>Sophie Dubois</h3>
+                        <p>Director of Client Experience</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Client Experiences</h2>
+                <p class="section-subtitle">Hear what our clients say about working with us</p>
+            </div>
+            
+            <div class="testimonials-slider fade-element delay-1">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Luxury Estates didn't just help us find a house; they helped us discover a lifestyle. Their attention to detail and market knowledge was unparalleled.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Wilson" class="author-img">
+                        <div class="author-name">James Wilson</div>
+                        <div class="author-role">Tech Entrepreneur</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="section contact">
+        <div class="container">
+            <div class="section-header fade-element">
+                <h2 class="section-title">Ready to Begin Your Journey?</h2>
+                <p class="section-subtitle">Connect with our luxury property specialists today</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info fade-element delay-1">
+                    <h3>Personalized Consultation</h3>
+                    <p>Schedule a private consultation with one of our luxury property specialists to discuss your unique needs and aspirations.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>+1 (310) 555-1234</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>consultation@luxuryestates.com</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-element delay-2">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="How can we assist you?" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Request Consultation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col fade-element">
+                    <h4>Luxury Estates</h4>
+                    <p>Redefining luxury real estate with exceptional service and unparalleled expertise in premium property markets worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col fade-element delay-1">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-2">
+                    <h4>Properties</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Luxury Villas</a></li>
+                        <li><a href="#">Penthouse Apartments</a></li>
+                        <li><a href="#">Waterfront Homes</a></li>
+                        <li><a href="#">Mountain Retreats</a></li>
+                        <li><a href="#">Urban Residences</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-3">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive exclusive property listings and market insights.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email Address" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright fade-element">
+                &copy; 2025 Luxury Estates. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script src="index.js"></script>
+</body>
+</html>

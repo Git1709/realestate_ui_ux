@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Properties | Premium Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .properties-hero {
+            height: 70vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 37, 64, 0.6), rgba(10, 37, 64, 0.6));
+        }
+        
+        .properties-hero-content {
+            text-align: center;
+            color: white;
+            width: 100%;
+        }
+        
+        .properties-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            line-height: 1.1;
+        }
+        
+        .filters-section {
+            background: white;
+            padding: 3rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .filter-group {
+            margin-bottom: 0;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .filter-btn {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sort-section {
+            padding: 1.5rem 0;
+            background: var(--light);
+        }
+        
+        .sort-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .results-count {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sort-group label {
+            font-weight: 500;
+        }
+        
+        .sort-select {
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        
+        .view-btn {
+            background: white;
+            border: 1px solid #ddd;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .view-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .view-btn:hover {
+            border-color: var(--accent);
+        }
+        
+        .properties-grid-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 5rem;
+        }
+        
+        .refine-sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .filter-options {
+            list-style: none;
+        }
+        
+        .filter-options li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-options input[type="checkbox"] {
+            margin-right: 0.8rem;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+        
+        .price-range {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .price-input {
+            flex: 1;
+        }
+        
+        .map-container {
+            height: 500px;
+            background: #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 37, 64, 0.7), rgba(10, 37, 64, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .properties-grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .refine-sidebar {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sort-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .properties-hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html" class="active">Properties</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="active">Properties</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+    
+    <!-- Properties Hero Section -->
+    <section class="hero properties-hero">
+        <div class="container">
+            <div class="properties-hero-content fade-element">
+                <h1>Find Your Dream Property</h1>
+                <p>Discover our exclusive collection of luxury homes in the world's most desirable locations</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quick Filters Section -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="location">Location</label>
+                <select class="filter-select" id="location">
+                    <option value="">Any Location</option>
+                    <option value="beverly-hills">Beverly Hills</option>
+                    <option value="malibu">Malibu</option>
+                    <option value="new-york">New York</option>
+                    <option value="miami">Miami</option>
+                    <option value="aspen">Aspen</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="property-type">Property Type</label>
+                <select class="filter-select" id="property-type">
+                    <option value="">Any Type</option>
+                    <option value="villa">Villa</option>
+                    <option value="penthouse">Penthouse</option>
+                    <option value="mansion">Mansion</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="estate">Estate</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="price-range">Price Range</label>
+                <select class="filter-select" id="price-range">
+                    <option value="">Any Price</option>
+                    <option value="1">Under $1M</option>
+                    <option value="2">$1M - $2M</option>
+                    <option value="3">$2M - $5M</option>
+                    <option value="4">$5M - $10M</option>
+                    <option value="5">Over $10M</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="bedrooms">Bedrooms</label>
+                <select class="filter-select" id="bedrooms">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+            
+            <button class="filter-btn">Search Properties</button>
+        </div>
+    </section>
+    
+    <!-- Sort & Results Section -->
+    <section class="sort-section">
+        <div class="sort-container">
+            <div class="results-count">Showing 12 of 48 properties</div>
+            <div class="sort-group">
+                <label for="sort">Sort by:</label>
+                <select class="sort-select" id="sort">
+                    <option value="newest">Newest First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="featured">Featured First</option>
+                </select>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-btn" data-view="map">
+                        <i class="fas fa-map"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Properties Content -->
+    <section class="section">
+        <div class="properties-grid-container">
+            <!-- Refine Sidebar -->
+            <div class="refine-sidebar">
+                <div class="sidebar-section">
+                    <h3>Property Type</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <input type="checkbox" id="villa" checked>
+                            <label for="villa">Villa</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="penthouse" checked>
+                            <label for="penthouse">Penthouse</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mansion">
+                            <label for="mansion">Mansion</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="townhouse">
+                            <label for="townhouse">Townhouse</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="estate" checked>
+                            <label for="estate">Estate</label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Price Range</h3>
+                    <div class="price-range">
+                        <div class="price-input">
+                            <label for="min-price">Min Price</label>
+                            <input type="number" id="min-price" class="filter-input" placeholder="$500,000">
+                        </div>
+                        <div class="price-input">
+                            <label for="max-price">Max Price</label>
+                            <input type="number" id="max-price" class="filter-input" placeholder="$10,000,000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Bedrooms</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <input type="checkbox" id="bed-any" checked>
+                            <label for="bed-any">Any</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="bed-1">
+                            <label for="bed-1">1 Bedroom</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="bed-2">
+                            <label for="bed-2">2 Bedrooms</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="bed-3" checked>
+                            <label for="bed-3">3 Bedrooms</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="bed-4" checked>
+                            <label for="bed-4">4+ Bedrooms</label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Amenities</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <input type="checkbox" id="pool">
+                            <label for="pool">Swimming Pool</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="gym">
+                            <label for="gym">Gym</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="garage" checked>
+                            <label for="garage">Garage</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="garden">
+                            <label for="garden">Garden</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="security">
+                            <label for="security">Security System</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Properties Grid -->
+            <div class="properties-content">
+                <div class="properties-grid">
+                    <!-- Property 1 -->
+                    <div class="property-card fade-element">
+                        <div class="property-badge">New Listing</div>
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Modern Villa" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$3,250,000</div>
+                            <h3 class="property-title">Oceanview Modern Villa</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Malibu, California</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>5 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>6 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>4,200 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 2 -->
+                    <div class="property-card fade-element">
+                        <div class="property-badge">Featured</div>
+                        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Penthouse" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$2,800,000</div>
+                            <h3 class="property-title">Skyline Luxury Penthouse</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Manhattan, New York</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>4 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>4.5 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>3,600 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 3 -->
+                    <div class="property-card fade-element">
+                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80" alt="Mountain Retreat" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$4,100,000</div>
+                            <h3 class="property-title">Alpine Mountain Retreat</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Aspen, Colorado</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>6 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>7 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>5,800 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 4 -->
+                    <div class="property-card fade-element">
+                        <div class="property-badge">Price Reduced</div>
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1475&q=80" alt="Beach House" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$2,450,000</div>
+                            <h3 class="property-title">Seaside Paradise Villa</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Miami, Florida</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>4 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>4 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>3,200 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 5 -->
+                    <div class="property-card fade-element">
+                        <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Urban Residence" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$3,750,000</div>
+                            <h3 class="property-title">Modern Urban Residence</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>3 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>3.5 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>2,900 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 6 -->
+                    <div class="property-card fade-element">
+                        <div class="property-badge">Featured</div>
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1453&q=80" alt="Country Estate" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$5,900,000</div>
+                            <h3 class="property-title">Countryside Luxury Estate</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Napa Valley, CA</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>7 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>8 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>8,400 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 7 -->
+                    <div class="property-card fade-element">
+                        <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Contemporary Home" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$2,150,000</div>
+                            <h3 class="property-title">Contemporary Hillside Home</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Beverly Hills, CA</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>4 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>4 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>3,500 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Property 8 -->
+                    <div class="property-card fade-element">
+                        <div class="property-badge">New Listing</div>
+                        <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Lake House" class="property-img">
+                        <div class="property-content">
+                            <div class="property-price">$3,850,000</div>
+                            <h3 class="property-title">Lakefront Luxury Retreat</h3>
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Lake Tahoe, Nevada</span>
+                            </div>
+                            <div class="property-features">
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    <div>5 Beds</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    <div>5.5 Baths</div>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-vector-square"></i>
+                                    <div>4,600 sq.ft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map View (hidden by default) -->
+                <div class="map-container" style="display: none;">
+                    <div class="map-overlay">Interactive Map View</div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col fade-element">
+                    <h4>Luxury Estates</h4>
+                    <p>Redefining luxury real estate with exceptional service and unparalleled expertise in premium property markets worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col fade-element delay-1">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#" class="active">Properties</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-2">
+                    <h4>Properties</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Luxury Villas</a></li>
+                        <li><a href="#">Penthouse Apartments</a></li>
+                        <li><a href="#">Waterfront Homes</a></li>
+                        <li><a href="#">Mountain Retreats</a></li>
+                        <li><a href="#">Urban Residences</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-3">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive exclusive property listings and market insights.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email Address" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright fade-element">
+                &copy; 2025 Luxury Estates. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Reuse the existing script functionality
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.overlay');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        overlay.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Scroll animations with Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-element');
+            
+            // Options for the observer
+            const options = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            // Create the observer
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, options);
+            
+            // Observe each element
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Hover effects for property cards
+        const propertyCards = document.querySelectorAll('.property-card');
+        propertyCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.12)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+            });
+        });
+        
+        // Properties page specific functionality
+        // View toggle
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const propertiesGrid = document.querySelector('.properties-grid');
+        const mapContainer = document.querySelector('.map-container');
+        
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                viewBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const view = btn.getAttribute('data-view');
+                
+                if (view === 'grid') {
+                    propertiesGrid.style.display = 'grid';
+                    mapContainer.style.display = 'none';
+                } else if (view === 'list') {
+                    propertiesGrid.style.display = 'grid';
+                    mapContainer.style.display = 'none';
+                    // In a real implementation, we would change the grid to list view
+                } else if (view === 'map') {
+                    propertiesGrid.style.display = 'none';
+                    mapContainer.style.display = 'block';
+                }
+            });
+        });
+        
+        // Filter button functionality
+        const filterBtn = document.querySelector('.filter-btn');
+        filterBtn.addEventListener('click', () => {
+            // In a real implementation, this would filter the properties
+            alert('Filters applied! In a real application, this would update the property listings.');
+        });
+    </script>
+</body>
+</html>
