@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same meta tags and CSS links as properties.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oceanview Modern Villa | Luxury Estates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+         .property-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* New styles specific to property details page */
+        .property-hero {
+            height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+        
+        .property-hero-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .property-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 37, 64, 0.9) 0%, transparent 60%);
+            z-index: -1;
+        }
+        
+        .property-hero-content {
+            padding: 3rem 2rem 5rem;
+            color: white;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .property-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .property-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .property-address {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .property-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .property-nav {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+        }
+        
+        .property-nav-container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .property-nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .property-nav-link:hover, 
+        .property-nav-link.active {
+            color: var(--accent);
+        }
+        
+        .property-nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .property-section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .property-description {
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .property-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 160, 168, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .detail-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+        
+        .detail-text p {
+            color: #666;
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .amenity-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .floor-plan {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .floor-plan img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .map-container {
+            height: 450px;
+            background: #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 2rem;
+        }
+        
+        .agent-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 150px;
+        }
+        
+        .agent-header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .agent-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin: 0 auto 1rem;
+        }
+        
+        .agent-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .agent-role {
+            opacity: 0.8;
+        }
+        
+        .agent-info {
+            padding: 2rem;
+        }
+        
+        .agent-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 160, 168, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .contact-form .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .schedule-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .schedule-btn:hover {
+            background: #00878e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .similar-properties {
+            background: var(--light);
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .agent-card {
+                position: relative;
+                top: 0;
+                margin-top: 3rem;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .property-hero {
+                height: 70vh;
+            }
+            
+            .property-details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .property-hero {
+                height: 60vh;
+            }
+            
+            .property-title {
+                font-size: 2.2rem;
+            }
+            
+            .property-price {
+                font-size: 2rem;
+            }
+            
+            .property-nav-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .property-hero {
+                height: 50vh;
+            }
+            
+            .property-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .property-section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html" class="active">Properties</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#" class="nav-cta">Schedule Tour</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">Luxury<span>Estates</span></a>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="properties.html" class="active">Properties</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="propdet.html" class="nav-cta">Property Details</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+    
+    <!-- Property Hero Section -->
+    <section class="property-hero">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Oceanview Modern Villa" class="property-hero-img">
+        <div class="property-hero-overlay"></div>
+        <div class="property-hero-content">
+            <div class="property-price" style="color: rgb(3, 1, 30);"></div>
+            <h1 class="property-title">Oceanview Modern Villa</h1>
+            <div class="property-address">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>123 Coastal Drive, Malibu, California</span>
+            </div>
+            <div class="property-stats">
+                <div class="stat-item">
+                    <i class="fas fa-bed"></i>
+                    <span>5 Bedrooms</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-bath"></i>
+                    <span>6 Bathrooms</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-vector-square"></i>
+                    <span>4,200 sq.ft</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-car"></i>
+                    <span>3 Garage</span>
+                </div>
+            </div>
+            <a href="#contact-agent" class="hero-btn">
+                <i class="fas fa-calendar-alt"></i> Schedule a Tour
+            </a>
+        </div>
+    </section>
+    
+    <!-- Property Navigation -->
+    <nav class="property-nav">
+        <div class="property-nav-container">
+            <a href="#overview" class="property-nav-link active">Overview</a>
+            <a href="#features" class="property-nav-link">Features</a>
+            <a href="#gallery" class="property-nav-link">Gallery</a>
+            <a href="#floor-plan" class="property-nav-link">Floor Plan</a>
+            <a href="#location" class="property-nav-link">Location</a>
+            <a href="#contact-agent" class="property-nav-link">Contact Agent</a>
+        </div>
+    </nav>
+    
+    <!-- Property Details Section -->
+    <section class="property-section" id="overview">
+        <div class="property-grid">
+            <div class="property-content">
+                <h2 class="section-title">Property Overview</h2>
+                <p class="property-description">
+                    This stunning modern villa offers breathtaking ocean views from every level. Situated on a private cliffside in Malibu, this architectural masterpiece features floor-to-ceiling glass walls that perfectly frame the Pacific Ocean. Designed by award-winning architects, the property seamlessly blends luxury living with natural surroundings.
+                </p>
+                <p class="property-description">
+                    The open-concept living area features a gourmet kitchen with top-of-the-line appliances, a spacious dining area, and a living room with a modern fireplace. The primary suite is a true sanctuary with panoramic ocean views, a spa-like bathroom with a soaking tub, and a walk-in closet that rivals high-end boutiques.
+                </p><br><br>
+                
+                <h2 class="section-title" id="features">Property Features</h2>
+                <div class="property-details-grid">
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Property Type</h4>
+                            <p>Luxury Villa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Year Built</h4>
+                            <p>2021</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Stories</h4>
+                            <p>3 Levels</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Pool</h4>
+                            <p>Infinity Edge</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Fireplace</h4>
+                            <p>3 (Living, Master, Patio)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="detail-text">
+                            <h4>Garage</h4>
+                            <p>3 Car, Smart System</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="section-subtitle"><span style="font-size:larger; color: black;">Amenities</span></h1>
+                <div class="amenities-grid">
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Infinity Pool with Spa</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Home Theater</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Smart Home System</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Wine Cellar</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Gym & Sauna</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Ocean View Terrace</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Chef's Kitchen</span>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Home Office</span>
+                    </div>
+                </div>
+                <br><br>
+                <h2 class="section-title" id="gallery">Gallery</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Living Room">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kitchen">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Master Bedroom">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Exterior">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pool">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="View">
+                    </div>
+                </div>
+                <br><br>
+                <h2 class="section-title" id="floor-plan">Floor Plan</h2>
+                <div class="floor-plan">
+                    <h3>Main Level - 2,800 sq.ft</h3>
+                    <img src="https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Floor Plan">
+                </div>
+                
+                
+            </div>
+            
+            <!-- Agent Contact Card -->
+            <div class="agent-card" id="contact-agent">
+                <div class="agent-header">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Agent" class="agent-img">
+                    <h3 class="agent-name">Sarah Johnson</h3>
+                    <p class="agent-role">Senior Property Specialist</p>
+                </div>
+                <div class="agent-info">
+                    <div class="agent-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(310) 555-1234</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>sarah@luxuryestates.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>License: #01234567</span>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Similar Properties -->
+    <section class="section similar-properties">
+        <div class="section-header">
+            <h2 class="section-title">Similar Properties</h2>
+            <p class="section-subtitle">Explore other luxury properties that match your preferences</p>
+        </div>
+        
+        <div class="properties-grid">
+            <!-- Property 2 from properties.html -->
+            <div class="property-card fade-element">
+                <div class="property-badge">Featured</div>
+                <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Penthouse" class="property-img">
+                <div class="property-content">
+                    <div class="property-price">$2,800,000</div>
+                    <h3 class="property-title">Skyline Luxury Penthouse</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Manhattan, New York</span>
+                    </div>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <div>4 Beds</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <div>4.5 Baths</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <div>3,600 sq.ft</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Property 4 from properties.html -->
+            <div class="property-card fade-element">
+                <div class="property-badge">Price Reduced</div>
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1475&q=80" alt="Beach House" class="property-img">
+                <div class="property-content">
+                    <div class="property-price">$2,450,000</div>
+                    <h3 class="property-title">Seaside Paradise Villa</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Miami, Florida</span>
+                    </div>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <div>4 Beds</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <div>4 Baths</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <div>3,200 sq.ft</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Property 7 from properties.html -->
+            <div class="property-card fade-element">
+                <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Contemporary Home" class="property-img">
+                <div class="property-content">
+                    <div class="property-price">$2,150,000</div>
+                    <h3 class="property-title">Contemporary Hillside Home</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Beverly Hills, CA</span>
+                    </div>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <div>4 Beds</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <div>4 Baths</div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <div>3,500 sq.ft</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col fade-element">
+                    <h4>Luxury Estates</h4>
+                    <p>Redefining luxury real estate with exceptional service and unparalleled expertise in premium property markets worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col fade-element delay-1">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html" class="active">Properties</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-2">
+                    <h4>Properties</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Luxury Villas</a></li>
+                        <li><a href="#">Penthouse Apartments</a></li>
+                        <li><a href="#">Waterfront Homes</a></li>
+                        <li><a href="#">Mountain Retreats</a></li>
+                        <li><a href="#">Urban Residences</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col fade-element delay-3">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive exclusive property listings and market insights.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email Address" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright fade-element">
+                &copy; 2025 Luxury Estates. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Reusing the same JavaScript from properties.html -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.overlay');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        overlay.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Scroll animations with Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-element');
+            
+            // Options for the observer
+            const options = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            // Create the observer
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, options);
+            
+            // Observe each element
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Property navigation scrolling
+        const propertyNavLinks = document.querySelectorAll('.property-nav-link');
+        
+        propertyNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                propertyNavLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Scroll to section
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 150;
+            
+            document.querySelectorAll('.property-section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    propertyNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Gallery lightbox functionality (placeholder)
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                alert('In a real implementation, this would open a lightbox gallery.');
+            });
+        });
+    </script>
+</body>
+</html>
